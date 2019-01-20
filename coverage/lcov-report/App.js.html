@@ -244,7 +244,7 @@ class App extends Component {
 &nbsp;
     this.state = {
       selectedCell: [-1,-1],
-      surroundingCell: []
+      surroundingCells: []
     }
   }
 &nbsp;
@@ -253,7 +253,7 @@ class App extends Component {
     const rand2 = <span class="cstat-no" title="statement not covered" >Math.floor(Math.random() * rand1) + 0;</span>
 <span class="cstat-no" title="statement not covered" >    this.setState({</span>
       selectedCell: [rand1, rand2],
-      surroundingCell: [[rand1-1, rand2-1],[rand1-1, rand2],[rand1-1, rand2+1], [rand1, rand2-1], [rand1, rand2+1], [rand1+1, rand2-1],[rand1+1, rand2],[rand1+1, rand2+1]]
+      surroundingCells: [[rand1-1, rand2-1],[rand1-1, rand2],[rand1-1, rand2+1], [rand1, rand2-1], [rand1, rand2+1], [rand1+1, rand2-1],[rand1+1, rand2],[rand1+1, rand2+1]]
     });
   }
 &nbsp;
@@ -292,7 +292,7 @@ class App extends Component {
     <span class="missing-if-branch" title="if path not taken" >I</span>if(this.state.selectedCell.toString() === [row,column].toString()){
 <span class="cstat-no" title="statement not covered" >      return 'table__selected';</span>
     }else{
-      const arr = this.state.surroundingCell.filter( <span class="fstat-no" title="function not covered" >it</span>em =&gt; {
+      const arr = this.state.surroundingCells.filter( <span class="fstat-no" title="function not covered" >it</span>em =&gt; {
 <span class="cstat-no" title="statement not covered" >        return (item.toString() === [row,column].toString());</span>
       });
       return arr.length &gt; 0 ? <span class="branch-0 cbranch-no" title="branch not covered" >'table__adjacent' </span>: 'table__cell';

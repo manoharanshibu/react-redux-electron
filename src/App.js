@@ -2,24 +2,18 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from './actions/actions';
+
 class App extends Component {
 
   constructor(props){
     super(props);
-
-    this.state = {
-      selectedCell: [-1,-1],
-      surroundingCell: []
-    }
   }
 
   onSelect = () => {
-    const rand1 = Math.floor(Math.random() * 9) + 1;
-    const rand2 = Math.floor(Math.random() * rand1) + 0;
-    this.setState({
-      selectedCell: [rand1, rand2],
-      surroundingCell: [[rand1-1, rand2-1],[rand1-1, rand2],[rand1-1, rand2+1], [rand1, rand2-1], [rand1, rand2+1], [rand1+1, rand2-1],[rand1+1, rand2],[rand1+1, rand2+1]]
-    });
+    this.props.clickAction();
   }
 
   renderSVGBox() {
@@ -54,10 +48,10 @@ class App extends Component {
   }
 
   getCellClassName(row, column){
-    if(this.state.selectedCell.toString() === [row,column].toString()){
+    if(this.props.selectedCell.toString() === [row,column].toString()){
       return 'table__selected';
     }else{
-      const arr = this.state.surroundingCell.filter( item => {
+      const arr = this.props.surroundingCells.filter( item => {
         return (item.toString() === [row,column].toString());
       });
       return arr.length > 0 ? 'table__adjacent' : 'table__cell';
@@ -92,4 +86,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ( state) => ({
+  selectedCell: state.selectedCell,
+  surroundingCells: state.surroundingCells
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
